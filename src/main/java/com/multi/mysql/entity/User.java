@@ -2,10 +2,7 @@ package com.multi.mysql.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -15,6 +12,9 @@ public class User {
     @Id
     @Column(name = "username", length = 10)
     private String username;
+
+    @Column(name = "name", length = 50)
+    private String name;
 
     @Column(name = "password", length = 64)
     private String password;

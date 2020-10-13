@@ -1,11 +1,11 @@
 package com.multi.postgre.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,4 +18,9 @@ public class Akses {
 
     @Column(name = "menu_code", length = 5)
     private String menuCode;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuCode")
+    @NotFound(action = NotFoundAction.IGNORE)
+    @OrderBy("menuCode")
+    private List<Menu> menu;
 }
