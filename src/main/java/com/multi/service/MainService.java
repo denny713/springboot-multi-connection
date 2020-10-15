@@ -16,7 +16,15 @@ public interface MainService {
 
     public void saveUser(User user);
 
+    public List<Menu> getAllMenu();
+
+    public Menu getByMenuCode(String menuCode);
+
     public void saveMenu(Menu menu);
+
+    public List<Akses> getAllAkses();
+
+    public Akses getByAksesKode(String accessCode);
 
     public void saveAkses(Akses akses);
 }

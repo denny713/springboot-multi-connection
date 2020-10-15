@@ -19,6 +19,9 @@ public class Akses {
     @Column(name = "menu_code", length = 5)
     private String menuCode;
 
+    @Column(name = "description", length = 50)
+    private String description;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuCode")
     @NotFound(action = NotFoundAction.IGNORE)
     @OrderBy("menuCode")

@@ -40,8 +40,28 @@ public class MainServiceImplement implements MainService {
     }
 
     @Override
+    public List<Menu> getAllMenu() {
+        return menuRepository.findAll();
+    }
+
+    @Override
+    public Menu getByMenuCode(String menuCode) {
+        return menuRepository.findByMenuCode(menuCode);
+    }
+
+    @Override
     public void saveMenu(Menu menu) {
         menuRepository.save(menu);
+    }
+
+    @Override
+    public List<Akses> getAllAkses() {
+        return aksesRepository.findAll();
+    }
+
+    @Override
+    public Akses getByAksesKode(String accessCode) {
+        return aksesRepository.findByAccessCode(accessCode);
     }
 
     @Override
