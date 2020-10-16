@@ -59,3 +59,24 @@ INSERT INTO "public"."menu" VALUES ('RPT', 'Report');
 -- Primary Key structure for table menu
 -- ----------------------------
 ALTER TABLE "public"."menu" ADD CONSTRAINT "menu_pkey" PRIMARY KEY ("menu_code");
+
+DROP TABLE IF EXISTS "public"."users";
+CREATE TABLE "public"."users" (
+  "username" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
+  "name" varchar(50) COLLATE "pg_catalog"."default",
+  "password" varchar(64) COLLATE "pg_catalog"."default" NOT NULL,
+  "access_code" varchar(5) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO "public"."users" VALUES ('denny', 'Denny', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'MGR');
+INSERT INTO "public"."users" VALUES ('denny1', 'Denny1', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f', 'GDG');
+INSERT INTO "public"."users" VALUES ('denny2', 'Denny2', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225', 'ACC');
+
+-- ----------------------------
+-- Primary Key structure for table users
+-- ----------------------------
+ALTER TABLE "public"."users" ADD CONSTRAINT "user_pkey" PRIMARY KEY ("username");
