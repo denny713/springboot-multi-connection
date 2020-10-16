@@ -1,5 +1,7 @@
 package com.multi.service;
 
+import com.multi.model.Response;
+import com.multi.model.UsersModel;
 import com.multi.mysql.entity.User;
 import com.multi.postgre.entity.Akses;
 import com.multi.postgre.entity.Menu;
@@ -27,4 +29,6 @@ public interface MainService {
     public Akses getByAksesKode(String accessCode);
 
     public void saveAkses(Akses akses);
+
+    public Response saveAll(UsersModel users);
 }

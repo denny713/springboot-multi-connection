@@ -5,7 +5,6 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Data
 @Entity
@@ -22,8 +21,8 @@ public class Akses {
     @Column(name = "description", length = 50)
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menuCode")
+    @OneToOne(cascade = CascadeType.ALL)
     @NotFound(action = NotFoundAction.IGNORE)
-    @OrderBy("menuCode")
-    private List<Menu> menu;
+    @JoinColumn(name = "menu_code", insertable = false, updatable = false, referencedColumnName = "menu_code")
+    private Menu menu;
 }

@@ -1,10 +1,7 @@
 package com.multi;
 
 import com.multi.controller.MainController;
-import com.multi.model.AksesModel;
-import com.multi.model.MenuModel;
-import com.multi.model.Response;
-import com.multi.model.UserModel;
+import com.multi.model.*;
 import com.multi.mysql.entity.User;
 import com.multi.postgre.entity.Akses;
 import com.multi.postgre.entity.Menu;
@@ -13,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -21,10 +19,12 @@ public class MainTest {
     @Autowired
     private MainController mainController;
 
+    private static Response response = new Response();
+
     @Test
     public void testGetAllUsers() {
         List<User> users = mainController.getAlluser();
-        Assertions.assertEquals(1, users.size());
+        Assertions.assertEquals(2, users.size());
     }
 
     @Test
@@ -37,18 +37,18 @@ public class MainTest {
     @Test
     public void testSaveUser() {
         UserModel user = new UserModel();
-        user.setUsername("denny1");
-        user.setPassword("12345678");
-        user.setName("Denny1");
+        user.setUsername("denny");
+        user.setPassword("123456");
+        user.setName("Denny");
         user.setAksesCode("MGR");
-        Response response = mainController.saveUser(user);
+        response = mainController.saveUser(user);
         Assertions.assertEquals(true, response.getResult());
     }
 
     @Test
     public void testAllAkses() {
         List<Akses> akses = mainController.getAllAkses();
-        Assertions.assertEquals(4, akses.size());
+        Assertions.assertEquals(6, akses.size());
     }
 
     @Test
@@ -64,14 +64,14 @@ public class MainTest {
         akses.setAccessCode("MGR");
         akses.setDescription("Manager");
         akses.setMenuCode("TRS");
-        Response response = mainController.saveAkses(akses);
+        response = mainController.saveAkses(akses);
         Assertions.assertEquals(true, response.getResult());
     }
 
     @Test
     public void testAllMenu() {
         List<Menu> menu = mainController.getAllMenu();
-        Assertions.assertEquals(3, menu.size());
+        Assertions.assertEquals(5, menu.size());
     }
 
     @Test
@@ -86,7 +86,39 @@ public class MainTest {
         MenuModel menu = new MenuModel();
         menu.setMenuCode("RPT");
         menu.setDescription("Report");
-        Response response = mainController.saveMenu(menu);
+        response = mainController.saveMenu(menu);
+        Assertions.assertEquals(true, response.getResult());
+    }
+
+    @Test
+    public void testSaveAll() {
+        UsersModel user = new UsersModel();
+        user.setUsername("denny1");
+        user.setName("Denny1");
+        user.setPassword("12345678");
+        user.setAksesCode("GDG");
+        List<AccessModel> akses = new ArrayList<>();
+        for (int x = 0; x < 2; x++) {
+            AccessModel aks = new AccessModel();
+            MenuModel menu = new MenuModel();
+            if (x == 0) {
+                aks.setAccessCode("GDG");
+                aks.setDescription("Gudang");
+                aks.setMenuCode("SOP");
+                menu.setMenuCode("SOP");
+                menu.setDescription("Stock Opname");
+            } else {
+                aks.setAccessCode("ACC");
+                aks.setDescription("Accounting");
+                aks.setMenuCode("GLD");
+                menu.setMenuCode("GLD");
+                menu.setDescription("General Ledger");
+            }
+            aks.setMenu(menu);
+            akses.add(aks);
+        }
+        user.setAccess(akses);
+        response = mainController.saveAll(user);
         Assertions.assertEquals(true, response.getResult());
     }
 }

@@ -1,9 +1,6 @@
 package com.multi.controller;
 
-import com.multi.model.AksesModel;
-import com.multi.model.MenuModel;
-import com.multi.model.Response;
-import com.multi.model.UserModel;
+import com.multi.model.*;
 import com.multi.mysql.entity.User;
 import com.multi.postgre.entity.Akses;
 import com.multi.postgre.entity.Menu;
@@ -130,5 +127,11 @@ public class MainController {
             response.setMessage(p.getMessage());
         }
         return response;
+    }
+
+    @PostMapping("/all/save")
+    @ResponseBody
+    public Response saveAll(@Valid @RequestBody UsersModel users) {
+        return mainService.saveAll(users);
     }
 }
