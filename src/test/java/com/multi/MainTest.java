@@ -20,6 +20,7 @@ public class MainTest {
     private MainController mainController;
 
     private static Response response = new Response();
+    private static String resource = "postgresql";
 
     @Test
     public void testGetAllUsers() {
@@ -61,8 +62,8 @@ public class MainTest {
     @Test
     public void testSaveAkses() {
         AksesModel akses = new AksesModel();
-        akses.setAccessCode("MGR");
-        akses.setDescription("Manager");
+        akses.setAccessCode("ADM");
+        akses.setDescription("Administrasi");
         akses.setMenuCode("TRS");
         response = mainController.saveAkses(akses);
         Assertions.assertEquals(true, response.getResult());
@@ -119,6 +120,17 @@ public class MainTest {
         }
         user.setAccess(akses);
         response = mainController.saveAll(user);
+        Assertions.assertEquals(true, response.getResult());
+    }
+
+    @Test
+    public void testSaveByResource() {
+        UserModel user = new UserModel();
+        user.setUsername("denny2");
+        user.setName("Denny2");
+        user.setPassword("123456789");
+        user.setAksesCode("ACC");
+        response = mainController.saveUserByResource(user, resource);
         Assertions.assertEquals(true, response.getResult());
     }
 }

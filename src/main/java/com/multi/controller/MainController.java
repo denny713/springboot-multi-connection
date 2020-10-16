@@ -134,4 +134,10 @@ public class MainController {
     public Response saveAll(@Valid @RequestBody UsersModel users) {
         return mainService.saveAll(users);
     }
+
+    @PostMapping("/user/save/{resource}")
+    @ResponseBody
+    public Response saveUserByResource(@Valid @RequestBody UserModel user, @PathVariable("resource") String resource) {
+        return mainService.saveUserByResource(user, resource);
+    }
 }

@@ -1,6 +1,7 @@
 package com.multi.service;
 
 import com.multi.model.Response;
+import com.multi.model.UserModel;
 import com.multi.model.UsersModel;
 import com.multi.mysql.entity.User;
 import com.multi.postgre.entity.Akses;
@@ -31,4 +32,6 @@ public interface MainService {
     public void saveAkses(Akses akses);
 
     public Response saveAll(UsersModel users);
+
+    public Response saveUserByResource(UserModel user, String resource);
 }

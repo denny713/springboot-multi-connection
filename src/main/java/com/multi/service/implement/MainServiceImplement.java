@@ -1,13 +1,16 @@
 package com.multi.service.implement;
 
 import com.multi.model.Response;
+import com.multi.model.UserModel;
 import com.multi.model.UsersModel;
 import com.multi.mysql.entity.User;
 import com.multi.mysql.repository.UserRepository;
 import com.multi.postgre.entity.Akses;
 import com.multi.postgre.entity.Menu;
+import com.multi.postgre.entity.Users;
 import com.multi.postgre.repository.AksesRepository;
 import com.multi.postgre.repository.MenuRepository;
+import com.multi.postgre.repository.UsersRepository;
 import com.multi.service.MainService;
 import com.multi.util.Function;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,12 @@ public class MainServiceImplement implements MainService {
 
     @Autowired
     private MenuRepository menuRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
+
+    private static Response response = new Response();
+    private static String SUCC = "Success Save";
 
     @Override
     public List<User> getAllUsers() {
@@ -75,7 +84,6 @@ public class MainServiceImplement implements MainService {
 
     @Override
     public Response saveAll(UsersModel users) {
-        Response response = new Response();
         try {
             User user = new User();
             user.setUsername(users.getUsername());
@@ -97,10 +105,37 @@ public class MainServiceImplement implements MainService {
             });
             aksesRepository.saveAll(akses);
             response.setResult(true);
-            response.setMessage("Success Save");
+            response.setMessage(SUCC);
         } catch (Exception l) {
             response.setResult(false);
             response.setMessage(l.getMessage());
+        }
+        return response;
+    }
+
+    @Override
+    public Response saveUserByResource(UserModel user, String resource) {
+        try {
+            User mysqlUser = new User();
+            Users postgreUser = new Users();
+            if (resource.equals("mysql")) {
+                mysqlUser.setUsername(user.getUsername());
+                mysqlUser.setName(user.getName());
+                mysqlUser.setPassword(Function.textEncrypt(user.getPassword()));
+                mysqlUser.setAccessCode(user.getAksesCode());
+                userRepository.save(mysqlUser);
+            } else {
+                postgreUser.setUsername(user.getUsername());
+                postgreUser.setName(user.getName());
+                postgreUser.setPassword(Function.textEncrypt(user.getPassword()));
+                postgreUser.setAccessCode(user.getAksesCode());
+                usersRepository.save(postgreUser);
+            }
+            response.setResult(true);
+            response.setMessage(SUCC);
+        } catch (Exception f) {
+            response.setResult(false);
+            response.setMessage(f.getMessage());
         }
         return response;
     }
