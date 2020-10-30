@@ -79,4 +79,4 @@ INSERT INTO "public"."users" VALUES ('denny2', 'Denny2', '15e2b0d3c33891ebb0f1ef
 -- ----------------------------
 -- Primary Key structure for table users
 -- ----------------------------
-ALTER TABLE "public"."users" ADD CONSTRAINT "user_pkey" PRIMARY KEY ("username");
+ALTER TABLE "public"."users" ADD CONSTRAINT "userss_pkey" PRIMARY KEY ("username");
